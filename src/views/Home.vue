@@ -4,11 +4,11 @@
 
     <div class="counter-container">
       <div class="counter">
-        <h1>{{ counter }}</h1>
+        <h1>{{ getCounter }}</h1>
       </div>
       <div class="buttons">
-        <button @click="decrementCounter">-</button>
-        <button @click="incrementCounter">+</button>
+        <button @click="$store.commit('decrementCounter')">-</button>
+        <button @click="$store.commit('incrementCounter')">+</button>
       </div>
     </div>
   </div>
@@ -19,19 +19,10 @@
 
 export default {
   name: "Home",
-  data() {
-    return {
-      counter: 0,
-    };
-  },
-  methods: {
-    decrementCounter() {
-      if (this.counter > 0) {
-        this.counter--;
-      }
-    },
-    incrementCounter() {
-      this.counter++;
+
+  computed: {
+    getCounter() {
+      return this.$store.state.counter;
     },
   },
 };
