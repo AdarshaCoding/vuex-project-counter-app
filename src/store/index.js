@@ -14,10 +14,23 @@ export default new Vuex.Store({
         state.counter--;
       }
     },
-    incrementCounter(state) {
-      state.counter++;
+    incrementCounter(state, randomNumber) {
+      console.log(randomNumber);
+      state.counter += randomNumber;
     },
   },
-  actions: {},
+  actions: {
+    incrementCounter({ commit }) {
+      const generateRandomNumber = async () => {
+        const response = await fetch(
+          "https://www.randomnumberapi.com/api/v1.0/random?min=1&max=9&count=1"
+        );
+        const data = await response.json();
+
+        commit("incrementCounter", data[0]);
+      };
+      generateRandomNumber();
+    },
+  },
   modules: {},
 });
